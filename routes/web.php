@@ -22,7 +22,10 @@ Route::get('/cadastro', 'App\Http\Controllers\UsuarioController@create')->name('
 Route::post('/cadastro/store', 'App\Http\Controllers\UsuarioController@store')->name('store');
 
 Route::get('/produtos', 'App\Http\Controllers\ProdutosController@index')->name('produtos');
-Route::get('/produtos/novo', 'App\Http\Controllers\ProdutosController@create')->name('produtos.novo');
-Route::post('/produtos/store', 'App\Http\Controllers\ProdutosController@store')->name('produtos.store');
-Route::get('/produtos/edit/{id}', 'App\Http\Controllers\ProdutosController@edit')->name('produtos.edit');
-Route::post('/produtos/update/{id}', 'App\Http\Controllers\ProdutosController@update')->name('produtos.update');
+
+Route::get('/admin/produtos', 'App\Http\Controllers\ProdutosController@indexadmin')->name('produtos');
+Route::get('/admin/produtos/novo', 'App\Http\Controllers\ProdutosController@create')->name('produtos.novo');
+Route::post('/admin/produtos/store', 'App\Http\Controllers\ProdutosController@store')->name('produtos.store');
+Route::get('/admin/produtos/edit/{id}', 'App\Http\Controllers\ProdutosController@edit')->name('produtos.edit');
+Route::post('/admin/produtos/update/{id}', 'App\Http\Controllers\ProdutosController@update')->name('produtos.update');
+Route::get('/admin/produtos/apagar/{id}', 'App\Http\Controllers\ProdutosController@destroy')->name('produtos.destroy');

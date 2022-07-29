@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\produto;
+use File;
 
 class ProdutosController extends Controller
 {
@@ -17,6 +18,21 @@ class ProdutosController extends Controller
     {
         $produtos = DB::table('produtos')
                     ->select('id','nome', 'descricao', 'preco', 'quantidade', 'imagem')
+                    ->where('status', 1) //Seleciona apenas os registro ativos (Status = 1)
+                    ->get();
+        return view('painel-cliente.index')->with('produtos', $produtos);
+    }
+
+    /**
+     * Retorna a página principal com grid de dados.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexadmin()
+    {
+        $produtos = DB::table('produtos')
+                    ->select('id','nome', 'descricao', 'preco', 'quantidade', 'imagem')
+                    ->where('status', 1) //Seleciona apenas os registro ativos (Status = 1)
                     ->get();
         return view('painel-admin.index')->with('produtos', $produtos);
     }
@@ -46,6 +62,7 @@ class ProdutosController extends Controller
         $produto->preco = $request->input('preco');
         $produto->quantidade = $request->input('quantidade');
 
+        //Salva a imagem na pasta
         if($request->hasFile('imagem') && $request->file('imagem')->isValid()){
             $requestImage = $request->imagem;
             $name = uniqid(date('HisYmd'));
@@ -53,15 +70,13 @@ class ProdutosController extends Controller
             $imageName = "{$name}.{$extension}";
             $requestImage->move(public_path('img/produtos'), $imageName);
             $produto->imagem = $imageName;
-        }else{
-            return redirect('/produtos/novo')->with('error', 'Imagem não encontrada!');
         }
         try {
             if ($produto->saveOrFail()) {//salvou o produto
-                return redirect('/produtos')->with('success', 'Produto salvo com sucesso!');
+                return redirect('/admin/produtos')->with('success', 'Produto salvo com sucesso!');
             }
         } catch (\Throwable $e) {
-            return redirect('/produtos/novo')->with('error', 'Não foi possível salvar o produto' . $e->getMessage());
+            return redirect('/admin/produtos/novo')->with('error', 'Não foi possível salvar o produto' . $e->getMessage());
         }
     }
 
@@ -78,7 +93,7 @@ class ProdutosController extends Controller
             if (isset($produto)) {
                 return view('painel-admin.cadastro')->with('produto', $produto);
             } else {
-                return redirect('/produto')->with('error', 'Produto não encontrado!');
+                return redirect('/admin/produto')->with('error', 'Produto não encontrado!');
             }
         }
     }
@@ -93,21 +108,56 @@ class ProdutosController extends Controller
     public function update(Request $request, $id)
     {
         $produto = Produto::find($id);
+    
         if (isset($produto)) {
             $produto->nome = $request->input('nome');
             $produto->descricao = $request->input('descricao');
             $produto->preco = $request->input('preco');
             $produto->quantidade = $request->input('quantidade');
-    
+            if($request->hasFile('imagem') && $request->file('imagem')->isValid()){
+                //Devemos excluir o arquivo antigo e salvar a nova
+                if($produto->imagem != null)
+                    File::delete('img/produtos/'.$produto->imagem);
+                $requestImage = $request->imagem;
+                $name = uniqid(date('HisYmd'));
+                $extension = $requestImage->extension();
+                $imageName = "{$name}.{$extension}";
+                $requestImage->move(public_path('img/produtos'), $imageName);
+                $produto->imagem = $imageName;
+            }
             try {
                 if ($produto->saveOrFail()) {
-                    return redirect('/produtos')->with('success', 'Produto salvo com sucesso!');
+                    return redirect('/admin/produtos')->with('success', 'Produto salvo com sucesso!');
                 }
             } catch (\Throwable $e) {
-                return redirect('/produtos/novo')->with('error', 'Não foi possível salvar o produto' . $e->getMessage());
+                return redirect('/admin/produtos/novo')->with('error', 'Não foi possível salvar o produto' . $e->getMessage());
             }
         } else {
-            return redirect('/produtos')->with('error', 'Não foi possível salvar o produto.' . ' Erro: Registro não encontrado.');
+            return redirect('/admin/produtos')->with('error', 'Não foi possível salvar o produto.' . ' Erro: Registro não encontrado.');
+        }
+    }
+
+    /**
+     * Desativa o registro informado.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $produto = Produto::find($id);
+
+        if (isset($produto)) {
+            $produto->status = "0";
+            try {
+                if ($produto->saveOrFail()) {
+                    return redirect('/admin/produtos')->with('success', 'Produto salvo com sucesso!');
+                }
+            } catch (\Throwable $e) {
+                return redirect('/admin/produtos/novo')->with('error', 'Não foi possível salvar o produto' . $e->getMessage());
+            }
+        } else {
+            return redirect('/admin/produtos')->with('error', 'Não foi possível salvar o produto.' . ' Erro: Registro não encontrado.');
         }
     }
 }

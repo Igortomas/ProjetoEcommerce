@@ -26,7 +26,7 @@
                     <div class="card mt-2 mx-auto p-4 bg-light">
                         <div class="card-body bg-light">
                             <div class = "container">
-                                <form id="contact-form" name="form" id="form" novalidate action={{ isset($produto->id ) ? '/produtos/update/'. $produto->id : '/produtos/store'}} method="POST" enctype="multipart/form-data">
+                                <form id="contact-form" name="form" id="form" novalidate action={{ isset($produto->id ) ? '/admin/produtos/update/'. $produto->id : '/admin/produtos/store'}} method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="controls">
                                         <div class="row">
@@ -57,13 +57,21 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
+                                                <div class="form-group d-flex justify-content-center">
+                                                @if($produto->imagem != null && $produto->imagem != '')
+                                                    <img src="{{asset("img/produtos/{$produto->imagem}")}}" height="200" width="200">
+                                                @endif
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="form_message">Descrição do produto *</label>
                                                     <textarea id="form_message" name="descricao" class="form-control" rows="4" required="required">{{ old('descricao',$produto->descricao) }}</textarea>
                                                 </div>
                                             </div>
                                                 <div class="col-md-12">
-                                                    <input type="submit" class="btn btn-success btn-send  pt-2 btn-block" value="Send Message" >
+                                                    <input type="submit" class="btn btn-success btn-send  pt-2 btn-block" value="Salvar Produto" >
+                                                    <a href="../produtos" class="btn btn-secondary btn-send  pt-2 btn-block" >Cancelar</a>
                                                 </div>
                                             </div>
                                         </div>

@@ -49,17 +49,10 @@ class UsuarioController extends Controller
             $_SESSION['nivel_usuario'] = $usuarios->nivel;
 
             if($_SESSION['nivel_usuario'] == '1'){
-                $produtos = DB::table('produtos')
-                    ->select('id', 'nome', 'descricao', 'preco', 'quantidade', 'imagem')
-                    ->get();
+                return redirect('/admin/produtos');
 
-                return view('painel-admin.index')->with('produtos', $produtos);
             }else if($_SESSION['nivel_usuario'] == '0'){
-                $produtos = DB::table('produtos')
-                    ->select('id', 'nome', 'descricao', 'preco', 'quantidade', 'imagem')
-                    ->get();
-
-                return view('painel-clientes.index')->with('produtos', $produtos);
+                return redirect('/produtos');
             }
         }else{
             echo "<script language='javascript'> window.alert('Dados Incorretos!') </script>";
@@ -91,23 +84,12 @@ class UsuarioController extends Controller
         $usuario->endereco = $request->input('endereco');
         $usuario->numero = $request->input('numero');
         $usuario->telefone = $request->input('telefone');
-
-        if($request->hasFile('imagem') && $request->file('imagem')->isValid()){
-            $requestImage = $request->imagem;
-            $name = uniqid(date('HisYmd'));
-            $extension = $requestImage->extension();
-            $imageName = "{$name}.{$extension}";
-            $requestImage->move(public_path('img/produtos'), $imageName);
-            $produto->imagem = $imageName;
-        }else{
-            return redirect('/produtos/novo')->with('error', 'Imagem não encontrada!');
-        }
         try {
-            if ($produto->saveOrFail()) {//salvou o produto
-                return redirect('/produtos')->with('success', 'Produto salvo com sucesso!');
+            if ($usuario->saveOrFail()) {//salvou o produto
+                return redirect('/produtos')->with('success', 'Uusuario salvo com sucesso!');
             }
         } catch (\Throwable $e) {
-            return redirect('/produtos/novo')->with('error', 'Não foi possível salvar o produto' . $e->getMessage());
+            return redirect('../')->with('error', 'Não foi possível salvar o usuario' . $e->getMessage());
         }
     }
 
