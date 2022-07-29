@@ -16,7 +16,7 @@ class ProdutosController extends Controller
     public function index()
     {
         $produtos = DB::table('produtos')
-                    ->select('id', 'descricao', 'preco', 'quantidade')
+                    ->select('id','nome', 'descricao', 'preco', 'quantidade')
                     ->get();
         return view('painel-admin.index')->with('produtos', $produtos);
     }
@@ -46,18 +46,18 @@ class ProdutosController extends Controller
         $produto->preco = $request->input('preco');
         $produto->quantidade = $request->input('quantidade');
 
+        if($request->hasFile('imagem') && $request->file('imagem')->isValid()){
+            $requestImage = $request->imagem;
+            $name = uniqid(date('HisYmd'));
+            $extension = $requestImage->extension();
+            $imageName = "{$name}.{$extension}";
+            $requestImage->move(public_path('img/produtos'), $imageName);
+            $produto->imagem = $imageName;
+        }else{
+            return redirect('/produtos/novo')->with('error', 'Imagem não encontrada!');
+        }
         try {
             if ($produto->saveOrFail()) {//salvou o produto
-
-                // Upload de imagem
-                if($request->hasFile('image') && $request->file('image')->isValid()){
-                    $requestImage = $request->image;
-                    $extension = $requestImage->extension();
-                    $imageName = md5($request->image->getClientOriginalName() . strtotime("now")) . "." . $extension;
-                    $request->image->move(public_path('img/produtos'), $imageName);
-
-                }
-
                 return redirect('/produtos')->with('success', 'Produto salvo com sucesso!');
             }
         } catch (\Throwable $e) {

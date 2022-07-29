@@ -26,7 +26,7 @@
                     <div class="card mt-2 mx-auto p-4 bg-light">
                         <div class="card-body bg-light">
                             <div class = "container">
-                                <form id="contact-form" name="form" id="form" novalidate action={{ isset($produto->id ) ? '/produtos/update/'. $produto->id : '/produtos/store'}} method="POST">
+                                <form id="contact-form" name="form" id="form" novalidate action={{ isset($produto->id ) ? '/produtos/update/'. $produto->id : '/produtos/store'}} method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="controls">
                                         <div class="row">
@@ -52,7 +52,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="form_message">Imagem *</label>
-                                                <input type="file" id="imagem" name="image" class="form-control-file" >
+                                                <input type="file" id="imagem" name="imagem" class="form-control-file" >
                                             </div>
                                         </div>
                                         <div class="row">
