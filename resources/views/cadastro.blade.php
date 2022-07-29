@@ -35,15 +35,15 @@ body {
 	background: -webkit-radial-gradient(0% 100%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%), linear-gradient(to bottom,  rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), linear-gradient(135deg,  #670d10 0%,#092756 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3E1D6D', endColorstr='#092756',GradientType=1 );
 }
-.login { 
+.cadastrar { 
 	position: absolute;
-	top: 50%;
+	top: 30%;
 	left: 50%;
 	margin: -150px 0 0 -150px;
 	width:300px;
 	height:300px;
 }
-.login h1 { color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.3); letter-spacing:1px; text-align:center; }
+.cadastrar h1 { color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.3); letter-spacing:1px; text-align:center; }
 
 input { 
 	width: 100%; 
@@ -66,14 +66,21 @@ input {
 }
 input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgba(255,255,255,0.2); }
 </style></head><body>
-    <div class="login">
-        <h1>Login</h1>
-        <form action="/login" method="post">
+    <div class="cadastrar">
+        <h1>Cadastrar</h1>
+        <form action="/cadastro/store" method="post">
             @csrf
-            <input type="text" name="usuario" placeholder="Login" required="required" />
-            <input type="password" name="senha" placeholder="Senha" required="required" />
-            <button type="submit" class="btn btn-primary btn-block btn-large">Logar</button>
-			<a href="/cadastro" class="d-flex justify-content-center">Cadastrar</a>
+            <input type="text" name="usuario" placeholder="Usuario" required="required" />
+			<input type="password" name="senha" placeholder="Senha" required="required" />
+			<input type="email" name="email" placeholder="Email" required="required" />
+			<input type="text" name="nome_completo" placeholder="Nome Completo" required="required" />
+			<input type="text" name="cpf" placeholder="CPF" required="required" />
+			<input type="text" name="cep" placeholder="CEP" required="required" />
+			<input type="text" name="endereco" placeholder="Endereço" required="required" />
+			<input type="text" name="numero" placeholder="Numero" required="required" />
+			<input type="text" name="telefone" placeholder="Telefone" required="required" />
+            <button type="submit" class="btn btn-primary btn-block btn-large">Cadastrar</button>
+			<a href="../" class="btn btn-secondary btn-block btn-large">Cancelar</a>
         </form>
     </div>
 <script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>

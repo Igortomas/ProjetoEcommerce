@@ -36,7 +36,7 @@
                         <td>{{ $produto->id }}</td>
                         <td>{{ $produto->nome }}</td>
                         <td>{{ $produto->preco }}</td>
-                        <td>{{ $produto->id }}</td>
+                        <td><img src="{{asset("img/produtos/{$produto->imagem}")}}" height="50" width="50"></td>
                         <td class="text-center">
                             <a href="/produtos/edit/{{ $produto->id }}" class='btn btn-info btn-xs'>
                             <span class="glyphicon glyphicon-edit"></span> Editar</a> 

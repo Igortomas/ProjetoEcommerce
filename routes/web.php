@@ -18,6 +18,8 @@ Route::get('/', function () {
 });
 
 Route::post('/login', 'App\Http\Controllers\UsuarioController@login')->name('login');
+Route::get('/cadastro', 'App\Http\Controllers\UsuarioController@create')->name('novo');
+Route::post('/cadastro/store', 'App\Http\Controllers\UsuarioController@store')->name('store');
 
 Route::get('/produtos', 'App\Http\Controllers\ProdutosController@index')->name('produtos');
 Route::get('/produtos/novo', 'App\Http\Controllers\ProdutosController@create')->name('produtos.novo');

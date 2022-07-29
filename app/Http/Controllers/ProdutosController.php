@@ -16,7 +16,7 @@ class ProdutosController extends Controller
     public function index()
     {
         $produtos = DB::table('produtos')
-                    ->select('id','nome', 'descricao', 'preco', 'quantidade')
+                    ->select('id','nome', 'descricao', 'preco', 'quantidade', 'imagem')
                     ->get();
         return view('painel-admin.index')->with('produtos', $produtos);
     }
