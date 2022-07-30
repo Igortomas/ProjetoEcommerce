@@ -20,7 +20,7 @@ class ProdutosController extends Controller
                     ->select('id','nome', 'descricao', 'preco', 'quantidade', 'imagem')
                     ->where('status', 1) //Seleciona apenas os registro ativos (Status = 1)
                     ->get();
-        return view('painel-cliente.index')->with('produtos', $produtos);
+        return view('painel-clientes.index')->with('produtos', $produtos);
     }
 
     /**

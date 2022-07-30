@@ -23,7 +23,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Descrição</th>
+                        <th>Produto</th>
                         <th>Preço</th>
                         <th>Imagem</th>
                         <th class="text-center">Ação</th>
@@ -35,7 +35,7 @@
                         <td>{{ $produto->id }}</td>
                         <td>{{ $produto->descricao }}</td>
                         <td>{{ $produto->preco }}</td>
-                        <td>{{ $produto->id }}</td>
+                        <td><img src="{{asset("img/produtos/{$produto->imagem}")}}" height="50" width="50"></td>
                         <td class="text-center">
                             <a class='btn btn-info btn-xs' href="#">
                             <span class="glyphicon glyphicon-usd"></span> Comprar</a> 
