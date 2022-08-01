@@ -71,7 +71,11 @@
                                             </div>
                                                 <div class="col-md-12">
                                                     <input type="submit" class="btn btn-success btn-send  pt-2 btn-block" value="Salvar Produto" >
-                                                    <a href="../produtos" class="btn btn-secondary btn-send  pt-2 btn-block" >Cancelar</a>
+                                                    @if($produto->id != null && $produto->id != '')
+                                                        <a href="../" class="btn btn-secondary btn-send  pt-2 btn-block" >Cancelar</a>
+                                                    @else
+                                                        <a href="../produtos" class="btn btn-secondary btn-send  pt-2 btn-block" >Cancelar</a>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
