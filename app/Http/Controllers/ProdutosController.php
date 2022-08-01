@@ -59,7 +59,7 @@ class ProdutosController extends Controller
         $produto = new Produto(); //criando o produto
         $produto->nome = $request->input('nome');
         $produto->descricao = $request->input('descricao');
-        $produto->preco = $request->input('preco');
+        $produto->preco = str_replace(['.', ','], ['', '.'],  $request->input('preco'));
         $produto->quantidade = $request->input('quantidade');
 
         //Salva a imagem na pasta
@@ -159,5 +159,27 @@ class ProdutosController extends Controller
         } else {
             return redirect('/admin/produtos')->with('error', 'Não foi possível salvar o produto.' . ' Erro: Registro não encontrado.');
         }
+    }
+
+        /**
+     * Função que contem as validações dos pagamentos da NFe
+     * @param request $dataForm
+     * @return array validacao - variavel com as informações dos campos que não passaram nas validações.
+     */
+    public function validaDados($dataForm)
+    {
+        $this->validaPagamentos = [
+            'usuario' => ['required'],
+            'senha' => ['required'],
+            'email' => ['required'],
+            'nome_completo' => ['required'],
+            'cpf' => ['required'],
+            'cep' => ['required'],
+            'endereco' => ['required'],
+            'numero' => ['required'],
+            'telefone' => ['required']
+        ];
+
+        return $this->validaPagamentos;
     }
 }

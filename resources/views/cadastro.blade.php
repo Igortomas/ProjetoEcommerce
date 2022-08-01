@@ -70,15 +70,15 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
         <h1>Cadastrar</h1>
         <form action="/cadastro/store" method="post">
             @csrf
-            <input type="text" name="usuario" placeholder="Usuario" required="required" />
-			<input type="password" name="senha" placeholder="Senha" required="required" />
-			<input type="email" name="email" placeholder="Email" required="required" />
-			<input type="text" name="nome_completo" placeholder="Nome Completo" required="required" />
-			<input type="text" name="cpf" placeholder="CPF" required="required" />
-			<input type="text" name="cep" placeholder="CEP" required="required" />
-			<input type="text" name="endereco" placeholder="Endereço" required="required" />
-			<input type="text" name="numero" placeholder="Numero" required="required" />
-			<input type="text" name="telefone" placeholder="Telefone" required="required" />
+            <input type="text" name="usuario" maxlength="200" placeholder="Usuario" required="required" />
+			<input type="password" name="senha" placeholder="Senha" maxlength="200" required="required" />
+			<input type="email" name="email" placeholder="Email" maxlength="200" required="required" />
+			<input type="text" name="nome_completo" placeholder="Nome Completo" maxlength="200" required="required" />
+			<input type="text" name="cpf" placeholder="CPF" maxlength="11" required="required" />
+			<input type="text" name="cep" placeholder="CEP" maxlength="8" required="required" />
+			<input type="text" name="endereco" placeholder="Endereço" maxlength="200" required="required" />
+			<input type="text" name="numero" placeholder="Numero" maxlength="20" required="required" />
+			<input type="text" name="telefone" placeholder="Telefone" maxlength="11" required="required" />
             <button type="submit" class="btn btn-primary btn-block btn-large">Cadastrar</button>
 			<a href="../" class="btn btn-secondary btn-block btn-large">Cancelar</a>
         </form>

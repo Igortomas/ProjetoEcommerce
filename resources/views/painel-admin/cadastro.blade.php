@@ -33,7 +33,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="form_name">Nome *</label>
-                                                    <input id="form_name" type="text" name="nome" class="form-control" value="{{ old('nome',$produto->nome) }}" required="required">
+                                                    <input id="form_name" type="text" name="nome" class="form-control" value="{{ old('nome',$produto->nome) }}" maxlength="200" required="required">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -47,7 +47,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="form_email">Quantidade *</label>
-                                                    <input id="form_email" type="text" name="quantidade" class="form-control" value="{{ old('quantidade',$produto->quantidade) }}" required="required">
+                                                    <input id="form_email" type="text" name="quantidade" class="form-control" value="{{ old('quantidade',$produto->quantidade) }}" maxlength="11" required="required">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -66,7 +66,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="form_message">Descrição do produto *</label>
-                                                    <textarea id="form_message" name="descricao" class="form-control" rows="4" required="required">{{ old('descricao',$produto->descricao) }}</textarea>
+                                                    <textarea id="form_message" name="descricao" class="form-control" rows="4" maxlength="200" required="required">{{ old('descricao',$produto->descricao) }}</textarea>
                                                 </div>
                                             </div>
                                                 <div class="col-md-12">
