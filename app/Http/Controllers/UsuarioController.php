@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
@@ -35,9 +36,9 @@ class UsuarioController extends Controller
         $usuario = $request->input('usuario');
         $senha = $request->input('senha');
 
-        $usuarios = usuario::where('usuario', '=', $usuario)->where('senha', '=', $senha)->first();
+        $usuarios = usuario::where('usuario', '=', $usuario)->first();
 
-        if(@$usuarios->id != null){
+        if(@$usuarios->id != null && Hash::check($senha, $usuarios->senha)){
 
             @session_start();
             $_SESSION['id_usuario'] = $usuarios->id;
@@ -76,7 +77,7 @@ class UsuarioController extends Controller
     {
         $usuario = new Usuario(); //criando o produto
         $usuario->usuario = $request->input('usuario');
-        $usuario->senha = $request->input('senha');
+        $usuario->senha = Hash::make($request->input('senha'));
         $usuario->email = $request->input('email');
         $usuario->nome_completo = $request->input('nome_completo');
         $usuario->cpf = $request->input('cpf');

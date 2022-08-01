@@ -16,7 +16,7 @@ class UsuariosTable extends Seeder
     {
         DB::table('usuarios')->insert([
             'usuario' => 'admin',
-            'senha' => '123',
+            'senha' => '$2y$10$.D0v8cPCGpk9tnnTm8hX9uRnu1sWbQivt4vvNzJ3CGymLYuiPQM3q',
             'email' => 'admin@teste.com',
             'nome_completo' => 'admin teste',
             'cpf' => '12345678901',
@@ -29,7 +29,7 @@ class UsuariosTable extends Seeder
 
         DB::table('usuarios')->insert([
             'usuario' => 'cliente',
-            'senha' => '123',
+            'senha' => '$2y$10$.D0v8cPCGpk9tnnTm8hX9uRnu1sWbQivt4vvNzJ3CGymLYuiPQM3q',
             'email' => 'cliente@teste.com',
             'nome_completo' => 'cliente teste',
             'cpf' => '12345678901',
